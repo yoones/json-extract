@@ -19,19 +19,23 @@ if ARGV.count != 2
   exit 1
 end
 
-content = readjsonfile(ARGV.first)
-path = ARGV[1].split("/")
-walker = content
-path.each do |sub|
-  if walker.nil?
-    $stderr.puts "Error: Path not found"
-    exit 1
+def json_extract(json_input, path)
+  walker = json_input.dup
+  path.split("/").reject { |c| c.empty? }.each do |sub|
+    return nil if walker.nil?
+    if walker.is_a?(Array)
+      walker = walker[sub.to_i]
+    else
+      walker = walker[sub]
+    end
   end
-  if walker.is_a?(Array)
-    walker = walker[sub.to_i]
-  else
-    walker = walker[sub]
-  end
+  walker
 end
 
-puts walker.to_s
+content = readjsonfile(ARGV.first)
+data = json_extract(content, ARGV.last)
+if data.nil?
+  $stderr.puts "Error: Path not found"
+  exit 1
+end
+puts data.to_s
