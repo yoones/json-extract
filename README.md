@@ -3,11 +3,11 @@ json-extract.rb
 
 Extract a subset of a json file.
 
-    __$ cat test.json__
+    $ cat test.json
     {"identity": {"firstname": "Younes", "lastname": "SERRAJ"}, "skills": ["C", "C++", "Ruby", "Google"], "love_to_code": true}
-    __$ ./json-extract.rb /__
+    $ ./json-extract.rb /
     {"identity"=>{"firstname"=>"Younes", "lastname"=>"SERRAJ"}, "skills"=>["C", "C++", "Ruby", "Google"], "love_to_code"=>true}
-    __$ ./json-extract.rb identity__
+    $ ./json-extract.rb identity
     {"firstname"=>"Younes", "lastname"=>"SERRAJ"}
-    __$ ./json-extract.rb test.json skills/2__
+    $ ./json-extract.rb test.json skills/2
     Ruby
